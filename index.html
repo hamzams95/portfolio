@@ -32,6 +32,15 @@
         html { scroll-behavior: smooth; }
         
         body {
+            /* Ajoute un espace en haut pour compenser le menu fixe */
+            padding-top: 80px; 
+        }
+
+        /* Optionnel : Ajustement spécifique pour mobile si le menu change de taille */
+            @media (max-width: 768px) {
+        body {
+            padding-top: 60px;
+        }
             font-family: 'Outfit', sans-serif;
             background-color: var(--bg-deep);
             color: var(--text-main);
