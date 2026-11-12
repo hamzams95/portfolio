@@ -3,569 +3,529 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CMS Expertise - Couvreur</title>
+<title>CMS Expertise - Couvreur Zingueur</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap');
+/* POLICES ÉLÉGANTES */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500;600&display=swap');
 
-/* FIX DÉFILEMENT HORIZONTAL */
 html, body {
   overflow-x: hidden;
   max-width: 100%;
   margin: 0;
   padding: 0;
   width: 100vw;
+  scroll-behavior: smooth;
 }
 
 *{box-sizing:border-box;margin:0;padding:0;}
+
+/* PALETTE SOBRE ET ÉLÉGANTE (Charbon & Or Champagne) */
 :root{
-  --navy:#0f1c2e;
-  --navy2:#16263d;
-  --navy3:#1d304f;
-  --gold:#b89a5a;
-  --gold2:#d4b87a;
-  --gold3:#f0d99a;
-  --off:#f7f5f1;
-  --white:#ffffff;
-  --muted:#6b7a8d;
-  --text:#1a2232;
-  --ff:'Outfit',sans-serif;
-  --fd:'Cormorant Garamond',serif;
+  --navy: #151719;       /* Noir charbon très profond */
+  --navy2: #1c1f22;      /* Anthracite */
+  --navy3: #25282c;      /* Gris foncé */
+  --gold: #c5a880;       /* Or Champagne, chic et sobre */
+  --gold2: #d4b895;      /* Champagne clair */
+  --gold3: #eaddc7;      /* Sable */
+  --off: #fbfaf8;        /* Blanc chaud très léger */
+  --white: #ffffff;
+  --muted: #828a93;
+  --text: #1a1a1a;
+  --ff: 'Outfit', sans-serif;
+  --fd: 'Cormorant Garamond', serif;
 }
 .w{font-family:var(--ff);background:var(--off);color:var(--text);overflow-x:hidden; width: 100%;}
 
 /* NAV */
-.nav{background:var(--navy);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;height:60px;border-bottom:1px solid rgba(184,154,90,0.25); position: sticky; top: 0; z-index: 100;}
-.logo{font-family:var(--fd);font-size:1.25rem;font-weight:700;color:var(--white);letter-spacing:.04em;}
-.logo em{color:var(--gold2);font-style:normal;}
-.nav-links{display:flex;gap:2rem;list-style:none;align-items:center;}
-.nav-links a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;transition:color .2s;cursor:pointer;}
-.nav-links a:hover{color:var(--gold2);}
-.nav-cta{background:var(--gold);color:var(--navy) !important;padding:.4rem 1.1rem;border-radius:2px;font-weight:600 !important;}
-.nav-cta:hover{background:var(--gold2) !important;}
+.nav{background:transparent;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:90px; border-bottom:1px solid rgba(197,168,128,0.1); position: fixed; width: 100%; top: 0; z-index: 1000; transition: all 0.5s ease;}
+.nav.scrolled {background:rgba(21, 23, 25, 0.98); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); height: 80px; box-shadow: 0 4px 30px rgba(0,0,0,0.3);}
+/* STYLE DU LOGO */
+.logo-img {height: 45px; width: auto; object-fit: contain; transition: transform 0.3s;}
+.nav.scrolled .logo-img {transform: scale(0.95);}
+
+.nav-links{display:flex;gap:2.5rem;list-style:none;align-items:center;}
+.nav-links a{color:rgba(255,255,255,0.7);text-decoration:none;font-size:.8rem;font-weight:400;letter-spacing:.1em;text-transform:uppercase;transition:color .3s;cursor:pointer;}
+.nav-links a:hover{color:var(--gold);}
+.nav-cta{background:transparent;color:var(--gold) !important;padding:.5rem 1.5rem;border-radius:2px;font-weight:400 !important; border: 1px solid var(--gold); transition: all 0.3s ease !important;}
+.nav-cta:hover{background:var(--gold) !important; color:var(--navy) !important;}
 .menu-toggle {display: none; font-size: 1.5rem; color: var(--white); cursor: pointer;}
 
+/* ANIMATIONS */
+@keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+.reveal { opacity: 0; transform: translateY(40px); transition: all 1s cubic-bezier(0.165, 0.84, 0.44, 1); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.delay-1 { transition-delay: 0.1s; }
+.delay-2 { transition-delay: 0.2s; }
+.delay-3 { transition-delay: 0.3s; }
+
 /* HERO */
-.hero{background:var(--navy);min-height:580px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:0;overflow:hidden;}
-.hero-left{padding:4rem 3rem 4rem 2.5rem;position:relative;z-index:2;}
-.hero-tag{display:inline-flex;align-items:center;gap:.5rem;background:rgba(184,154,90,0.12);border:1px solid rgba(184,154,90,0.3);color:var(--gold2);font-size:.7rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:.35rem .9rem;border-radius:2px;margin-bottom:1.5rem;}
-.hero-tag i{font-size:12px;}
-.hero h1{font-family:var(--fd);font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:700;color:var(--white);line-height:1.1;margin-bottom:1.2rem;}
-.hero h1 span{color:var(--gold2);}
-.hero-sub{color:rgba(255,255,255,0.55);font-size:.92rem;line-height:1.75;margin-bottom:2rem;max-width:420px;font-weight:300;}
-.hero-btns{display:flex;gap:.8rem;flex-wrap:wrap;}
-.btn-gold{background:var(--gold);color:var(--navy);padding:.7rem 1.5rem;border-radius:2px;font-size:.85rem;font-weight:600;cursor:pointer;border:none;letter-spacing:.04em;transition:background .2s,transform .15s;}
-.btn-gold:hover{background:var(--gold2);transform:translateY(-1px);}
-.btn-ghost{background:transparent;color:rgba(255,255,255,0.75);padding:.7rem 1.5rem;border-radius:2px;font-size:.85rem;font-weight:500;cursor:pointer;border:1px solid rgba(255,255,255,0.2);transition:border-color .2s,color .2s;}
-.btn-ghost:hover{border-color:var(--gold);color:var(--gold2);}
-.hero-right{position:relative;height:100%; min-height:400px; overflow:hidden;}
-.hero-img{width:100%;height:100%;object-fit:cover;opacity:0.7;display:block;}
-.hero-right::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--navy) 0%,transparent 40%);z-index:1;}
-.hero-right::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(to top,var(--navy),transparent);z-index:1;}
+.hero{background:var(--navy);min-height:100vh;display:grid;grid-template-columns:1.1fr 0.9fr;align-items:center;gap:0;overflow:hidden; padding-top: 60px;}
+.hero-left{padding:4rem 4rem 4rem 3rem;position:relative;z-index:2;}
+.hero-tag{display:inline-flex;align-items:center;gap:.6rem;color:var(--gold);font-size:.7rem;font-weight:400;letter-spacing:.15em;text-transform:uppercase;margin-bottom:2rem; border-bottom: 1px solid var(--gold); padding-bottom: 0.3rem;}
+.hero h1{font-family:var(--fd);font-size:clamp(3rem,5vw,4.5rem);font-weight:400;color:var(--white);line-height:1.05;margin-bottom:1.5rem;}
+.hero h1 i{font-style: italic; color:var(--gold);}
+.hero-sub{color:rgba(255,255,255,0.5);font-size:1.05rem;line-height:1.8;margin-bottom:3rem;max-width:500px;font-weight:300;}
+.hero-btns{display:flex;gap:1.5rem;flex-wrap:wrap;}
+.btn-gold{background:var(--gold);color:var(--navy);padding:.9rem 2.2rem;border-radius:2px;font-size:.85rem;font-weight:500;cursor:pointer;border:none;letter-spacing:.05em;text-transform:uppercase;transition:all .4s ease;}
+.btn-gold:hover{background:var(--white); transform:translateY(-3px);}
+.btn-ghost{background:transparent;color:rgba(255,255,255,0.8);padding:.9rem 2.2rem;border-radius:2px;font-size:.85rem;font-weight:400;cursor:pointer;border:1px solid rgba(255,255,255,0.3);text-transform:uppercase;transition:all .4s ease;}
+.btn-ghost:hover{border-color:var(--gold);color:var(--gold); transform:translateY(-3px);}
+.hero-right{position:relative;height:100%; min-height:500px; overflow:visible;}
+.hero-img{width:100%;height:100%;object-fit:cover;opacity:0.6;display:block; animation: float 8s ease-in-out infinite; filter: grayscale(20%) contrast(1.1);}
+.hero-right::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,var(--navy) 0%,transparent 50%);z-index:1;}
+.hero-right::after{content:'';position:absolute;bottom:0;left:0;right:0;height:150px;background:linear-gradient(to top,var(--navy),transparent);z-index:1;}
 
 /* STATS */
-.stats{background:var(--navy2);border-top:1px solid rgba(184,154,90,0.2);border-bottom:1px solid rgba(184,154,90,0.2);display:flex;justify-content:center; flex-wrap: wrap;}
-.stat{padding:1.2rem 2.8rem;text-align:center;border-right:1px solid rgba(184,154,90,0.15);}
+.stats{background:var(--navy2);display:flex;justify-content:center; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.05);}
+.stat{padding:2.5rem 4rem;text-align:center;border-right:1px solid rgba(255,255,255,0.05);}
 .stat:last-child{border-right:none;}
-.stat-n{font-family:var(--fd);font-size:2rem;font-weight:700;color:var(--gold2);display:block;line-height:1;}
-.stat-l{font-size:.7rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:.1em;margin-top:.3rem;display:block;}
+.stat-n{font-family:var(--fd);font-size:3rem;font-weight:400;color:var(--gold);display:block;line-height:1;}
+.stat-l{font-size:.75rem;font-weight:400;color:var(--muted);text-transform:uppercase;letter-spacing:.15em;margin-top:.8rem;display:block;}
 
-/* SECTIONS */
-.section{padding:5rem 2rem;max-width:920px;margin:0 auto;}
-.sec-label{font-size:.7rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.6rem;}
-.sec-title{font-family:var(--fd);font-size:2.2rem;font-weight:700;color:var(--text);line-height:1.15;margin-bottom:.5rem;}
-.sec-bar{width:40px;height:2px;background:var(--gold);margin-bottom:1.2rem;}
-.sec-intro{color:var(--muted);font-size:.9rem;line-height:1.8;max-width:580px;font-weight:400;}
+/* SECTIONS COMMUNES */
+.section{padding:7rem 2rem;max-width:1100px;margin:0 auto;}
+.sec-label{font-size:.75rem;font-weight:400;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-bottom:1rem; display: flex; align-items: center; gap: 1rem;}
+.sec-label::before, .sec-label::after {content: ''; height: 1px; width: 30px; background: var(--gold);}
+.sec-title{font-family:var(--fd);font-size:3rem;font-weight:400;color:var(--navy);line-height:1.1;margin-bottom:1.5rem;}
+.sec-intro{color:var(--muted);font-size:1.05rem;line-height:1.8;max-width:700px;font-weight:300; margin: 0 auto 3rem; text-align: center;}
 
-/* SERVICES */
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(0,0,0,0.08);border-radius:8px;overflow:hidden;margin-top:2.5rem;}
-.svc-card{background:var(--white);padding:1.6rem;transition:background .25s,transform .2s;position:relative;}
-.svc-card:hover{background:#faf7f2;transform:translateY(-2px);}
-.svc-card::after{content:'';position:absolute;bottom:0;left:1.6rem;right:1.6rem;height:2px;background:var(--gold);transform:scaleX(0);transition:transform .3s;transform-origin:left;}
-.svc-card:hover::after{transform:scaleX(1);}
-.svc-photo{width:100%;height:130px;object-fit:cover;border-radius:4px;margin-bottom:1rem;display:block;}
-.svc-photo-placeholder{width:100%;height:130px;background:var(--navy);border-radius:4px;margin-bottom:1rem;display:flex;align-items:center;justify-content:center;}
-.svc-photo-placeholder i{font-size:2rem;color:var(--gold);}
-.svc-icon{font-size:1.3rem;color:var(--gold);margin-bottom:.7rem;display:block;}
-.svc-name{font-family:var(--fd);font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.4rem;}
-.svc-desc{font-size:.78rem;color:var(--muted);line-height:1.65;font-weight:400;}
-.svc-link{display:inline-flex;align-items:center;gap:.3rem;font-size:.75rem;font-weight:600;color:var(--gold);margin-top:.6rem;letter-spacing:.05em;text-transform:uppercase;cursor:pointer;}
-.svc-link i{font-size:12px; transition: transform 0.3s;}
-.svc-link.active i{transform: rotate(180deg);}
+/* SERVICES (Refonte Majeure) */
+.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;margin-top:2rem;}
+.svc-card{background:var(--white);padding:3rem 2rem;border-radius:2px;border:1px solid rgba(0,0,0,0.04);transition:all .5s ease;position:relative; z-index: 1;}
+.svc-card:hover{transform:translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.04); z-index: 2;}
+.svc-card::before{content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:var(--gold);transform:scaleX(0);transition:transform .5s ease;transform-origin:left;}
+.svc-card:hover::before{transform:scaleX(1);}
+.svc-icon{font-size:2.2rem;color:var(--gold);margin-bottom:1.5rem;display:block; font-weight:300; transition: transform 0.4s ease;}
+.svc-card:hover .svc-icon {transform: scale(1.1);}
+.svc-name{font-family:var(--fd);font-size:1.5rem;font-weight:600;color:var(--navy);margin-bottom:1rem;}
+.svc-desc{font-size:.9rem;color:var(--muted);line-height:1.7;font-weight:300; margin-bottom: 1.5rem;}
+.svc-features {list-style: none; margin-bottom: 1.5rem; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 1.5rem;}
+.svc-features li {font-size: .8rem; color: var(--text); margin-bottom: .6rem; display: flex; align-items: center; gap: .5rem;}
+.svc-features li i {color: var(--gold); font-size: 14px;}
+.svc-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.75rem;font-weight:500;color:var(--navy);letter-spacing:.1em;text-transform:uppercase;cursor:pointer; border-bottom: 1px solid transparent; transition: all 0.3s;}
+.svc-link:hover {color: var(--gold); border-bottom-color: var(--gold);}
 
-/* Details Panel */
-.svc-details {
-  display: none;
-  margin-top: 15px;
-  padding-top: 15px;
-  border-top: 1px solid rgba(0,0,0,0.05);
-  font-size: 0.75rem;
-  color: var(--text);
-  line-height: 1.6;
-  animation: slideDown 0.3s ease forwards;
-}
-.svc-details strong { color: var(--gold); }
-@keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+/* DIRIGEANT / PRÉSENTATION */
+.dirigeant-full {background: var(--white); padding: 7rem 2rem;}
+.dirigeant-inner {max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 4rem; align-items: center;}
+.dir-img-wrapper {position: relative; padding-bottom: 110%; /* Ratio portrait */ border-radius: 2px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1);}
+.dir-img-wrapper::after {content:''; position:absolute; inset:20px; border: 1px solid rgba(255,255,255,0.4); pointer-events:none; z-index:2;}
+/* PLACEHOLDER PHOTO MAHDI SANDALI */
+.dir-img {position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:1; filter: grayscale(30%); transition: filter 0.5s;}
+.dir-img-wrapper:hover .dir-img {filter: grayscale(0%);}
+.dir-content h2 {font-family: var(--fd); font-size: 2.5rem; color: var(--navy); margin-bottom: 0.5rem;}
+.dir-role {font-size: .85rem; text-transform: uppercase; letter-spacing: .2em; color: var(--gold); margin-bottom: 2rem; display: block;}
+.dir-text {font-size: 1rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.5rem; font-weight: 300;}
+.dir-sign {font-family: var(--fd); font-size: 2rem; color: var(--navy); font-style: italic; margin-top: 2rem;}
+
+/* PLAQUETTE DE RÉFÉRENCE */
+.brochure-full {background: var(--navy); padding: 6rem 2rem; text-align: center; position: relative;}
+.brochure-full::before {content:''; position:absolute; inset:0; background: url('https://images.unsplash.com/photo-1541888086225-ee8922253b21?w=1600&auto=format&fit=crop&q=80') center/cover; opacity: 0.05; z-index: 0;}
+.brochure-inner {position: relative; z-index: 1; max-width: 700px; margin: 0 auto;}
+.brochure-inner .sec-title {color: var(--white); margin-bottom: 1.5rem;}
+.brochure-inner p {color: rgba(255,255,255,0.6); margin-bottom: 3rem; font-size: 1.1rem; font-weight: 300; line-height: 1.6;}
+.btn-download {display: inline-flex; align-items: center; gap: 1rem; background: var(--gold); color: var(--navy); padding: 1rem 2.5rem; text-decoration: none; font-size: .85rem; font-weight: 500; letter-spacing: .1em; text-transform: uppercase; transition: all 0.4s;}
+.btn-download:hover {background: var(--white); transform: translateY(-3px);}
+.btn-download i {font-size: 1.2rem;}
 
 /* MATERIAUX */
-.mat-full{background:var(--navy);padding:5rem 2rem;}
-.mat-inner{max-width:920px;margin:0 auto;}
-.mat-full .sec-title{color:var(--white);}
-.mat-full .sec-intro{color:rgba(255,255,255,0.45);}
-.mat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2rem;}
-.mat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(184,154,90,0.18);border-radius:4px;padding:1.2rem 1.4rem;transition:border-color .2s,background .2s;cursor:default;}
-.mat-card:hover{border-color:rgba(184,154,90,0.5);background:rgba(184,154,90,0.06);}
-.mat-card i{font-size:1.4rem;color:var(--gold);display:block;margin-bottom:.6rem;}
-.mat-name{font-family:var(--fd);font-size:1.05rem;font-weight:600;color:var(--white);margin-bottom:.3rem;}
-.mat-desc{font-size:.75rem;color:rgba(255,255,255,0.4);line-height:1.6;}
+.mat-full{background:var(--off);padding:7rem 2rem;}
+.mat-full .sec-intro {margin-bottom: 4rem;}
+.mat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem;}
+.mat-card{background:transparent;border:1px solid rgba(0,0,0,0.06);padding:2.5rem 2rem;transition:all .4s ease; text-align: center;}
+.mat-card:hover{border-color:var(--gold); background: var(--white); transform: translateY(-5px);}
+.mat-card i{font-size:2.2rem;color:var(--gold);display:block;margin-bottom:1.5rem;}
+.mat-name{font-family:var(--fd);font-size:1.3rem;font-weight:600;color:var(--navy);margin-bottom:.8rem;}
+.mat-desc{font-size:.9rem;color:var(--muted);line-height:1.6; font-weight:300;}
 
-/* PROCESS */
-.process-full{background:var(--white);padding:5rem 2rem;}
-.process-inner{max-width:920px;margin:0 auto;}
-.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:3.5rem;position:relative;}
-.process-steps::before{content:'';position:absolute;top:28px;left:12.5%;right:12.5%;height:2px;background:linear-gradient(to right, transparent, var(--gold), transparent);opacity:0.5;}
-.step{text-align:center;padding:0 1rem;position:relative; transition: transform 0.3s ease;}
-.step:hover {transform: translateY(-8px);}
-.step-num{width:56px;height:56px;border-radius:50%;background:var(--navy);border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:var(--fd);font-size:1.2rem;font-weight:700;color:var(--gold); transition: all 0.3s ease; position: relative; z-index: 2;}
-.step:hover .step-num {background: var(--gold); color: var(--navy); box-shadow: 0 0 20px rgba(184,154,90,0.4), inset 0 0 0 4px var(--white);}
-.step-title{font-family:var(--fd);font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem; transition: color 0.3s ease;}
-.step:hover .step-title {color: var(--gold);}
-.step-desc{font-size:.76rem;color:var(--muted);line-height:1.6;}
-
-/* ENGAGEMENTS */
-.eng-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;margin-top:3rem;}
-.eng-card{display:flex;gap:1rem;padding:1.2rem;background:var(--white);border-radius:4px;border:0.5px solid rgba(0,0,0,0.07);transition:all .3s;}
-.eng-card:hover{border-color:rgba(184,154,90,0.35); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.03);}
-.eng-icon{width:44px;height:44px;background:rgba(184,154,90,0.1);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0; transition: background 0.3s;}
-.eng-card:hover .eng-icon {background: var(--gold);}
-.eng-card:hover .eng-icon i {color: var(--white);}
-.eng-icon i{font-size:1.1rem;color:var(--gold); transition: color 0.3s;}
-.eng-title{font-weight:600;font-size:.88rem;color:var(--text);margin-bottom:.25rem;}
-.eng-text{font-size:.77rem;color:var(--muted);line-height:1.6;}
+/* PROCESS (Méthode) */
+.process-full{background:var(--navy);padding:7rem 2rem;}
+.process-inner{max-width:1100px;margin:0 auto; text-align: center;}
+.process-inner .sec-title{color:var(--white);}
+.process-inner .sec-intro{color:rgba(255,255,255,0.5);}
+.process-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:4rem;}
+.step{text-align:center;padding:2rem 1rem; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s ease;}
+.step:hover {background: rgba(255,255,255,0.02); border-color: rgba(197,168,128,0.3); transform: translateY(-5px);}
+.step-num{font-family:var(--fd);font-size:3.5rem;font-weight:300;color:rgba(197,168,128,0.2); line-height: 1; margin-bottom: 1rem; transition: color 0.4s;}
+.step:hover .step-num {color: var(--gold);}
+.step-title{font-family:var(--fd);font-size:1.3rem;font-weight:400;color:var(--white);margin-bottom:.8rem;}
+.step-desc{font-size:.85rem;color:rgba(255,255,255,0.5);line-height:1.7; font-weight: 300;}
 
 /* CHIFFRES CLÉS */
-.chiffres-full {background: var(--off); padding: 5rem 2rem;}
-.chiffres-inner {max-width: 920px; margin: 0 auto; text-align: center;}
-.chiffres-grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 3rem;}
-.c-box {background: var(--white); padding: 3rem 2rem; border-radius: 8px; border: 1px solid rgba(184,154,90,0.15); box-shadow: 0 4px 15px rgba(0,0,0,0.02);}
-.c-num {font-family: var(--fd); font-size: 3.5rem; font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 0.5rem;}
-.c-label {font-size: 0.85rem; font-weight: 600; color: var(--navy); text-transform: uppercase; letter-spacing: 0.1em;}
-.c-text {font-size: 0.75rem; color: var(--muted); margin-top: 0.8rem;}
+.chiffres-full {background: var(--off); padding: 6rem 2rem; border-top: 1px solid rgba(0,0,0,0.03);}
+.chiffres-grid {display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; max-width: 1000px; margin: 0 auto; text-align: center;}
+.c-num {font-family: var(--fd); font-size: 4.5rem; font-weight: 400; color: var(--navy); line-height: 1; margin-bottom: 1rem;}
+.c-label {font-size: .8rem; font-weight: 500; color: var(--gold); text-transform: uppercase; letter-spacing: .2em; margin-bottom: .8rem;}
+.c-text {font-size: .9rem; color: var(--muted); font-weight:300;}
 
-/* ZONE D'INTERVENTION */
-.zone-full{background:var(--navy3);padding:4rem 2rem;text-align:center;}
-.zone-full .sec-title{color:var(--white);}
-.zone-full .sec-bar{margin:0 auto .8rem;}
-.zone-full .sec-intro{color:rgba(255,255,255,0.4);margin:0 auto 1.8rem;}
-.zone-container {display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; max-width: 920px; margin: 3rem auto 0; text-align: left;}
-.zone-tags{display:flex;flex-wrap:wrap;gap:.6rem; align-content: flex-start;}
-.zone-tag{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);color:rgba(255,255,255,0.7);padding:.5rem 1.2rem;border-radius:100px;font-size:.78rem;display:flex;align-items:center;gap:.5rem;transition:border-color .2s,color .2s;}
-.zone-tag:hover{border-color:var(--gold);color:var(--gold2); background: rgba(184,154,90,0.1);}
-.zone-dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0;}
-.zone-map {width: 100%; height: 350px; border-radius: 8px; overflow: hidden; border: 2px solid rgba(184,154,90,0.3); box-shadow: 0 10px 30px rgba(0,0,0,0.2);}
-
-/* CONTACT */
-.contact-full{background:var(--navy);padding:5rem 2rem;}
-.contact-inner{max-width:680px;margin:0 auto;}
-.contact-full .sec-title{color:var(--white);}
-.contact-full .sec-bar{margin-bottom:.8rem;}
-.contact-full .sec-intro{color:rgba(255,255,255,0.45);margin-bottom:2rem;}
-.cform{background:rgba(255,255,255,0.04);border:1px solid rgba(184,154,90,0.18);border-radius:6px;padding:2rem;}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem;}
-.ffield{margin-bottom:.8rem;}
-.ffield label{display:block;font-size:.7rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem;}
-.ffield input,.ffield select,.ffield textarea{width:100%;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.12);border-radius:3px;color:rgba(255,255,255,0.85);font-family:var(--ff);font-size:.85rem;padding:.55rem .8rem; transition: border-color 0.2s;}
-.ffield input:focus, .ffield select:focus, .ffield textarea:focus {outline: none; border-color: var(--gold);}
-.ffield input::placeholder,.ffield textarea::placeholder{color:rgba(255,255,255,0.25);}
-.ffield select option{background:#1d304f;}
-.ffield textarea{resize:vertical;min-height:80px;}
-.fsub{width:100%;margin-top:.4rem;padding:.8rem;font-size:.88rem;font-weight:600;letter-spacing:.05em;cursor:pointer;border:none;background:var(--gold);color:var(--navy);border-radius:3px;transition:background .2s, opacity .2s;}
-.fsub:hover{background:var(--gold2);}
+/* CONTACT FORM */
+.contact-full{background:var(--white);padding:7rem 2rem;}
+.contact-inner{max-width:800px;margin:0 auto; text-align: center;}
+.cform{background:var(--off);border:1px solid rgba(0,0,0,0.05);padding:4rem; text-align: left; margin-top: 3rem;}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:1.5rem;}
+.ffield{margin-bottom:1.5rem;}
+.ffield label{display:block;font-size:.75rem;color:var(--navy);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.8rem;}
+.ffield input,.ffield select,.ffield textarea{width:100%;background:var(--white);border:1px solid rgba(0,0,0,0.1);color:var(--text);font-family:var(--ff);font-size:1rem;padding:1rem 1.2rem; transition: all 0.3s ease;}
+.ffield input:focus, .ffield select:focus, .ffield textarea:focus {outline: none; border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold);}
+.ffield textarea{resize:vertical;min-height:120px;}
+.fsub{width:100%;margin-top:1rem;padding:1.2rem;font-size:.85rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;border:none;background:var(--navy);color:var(--white);transition:all .4s ease;}
+.fsub:hover{background:var(--gold); color:var(--navy);}
 .fsub:disabled{opacity:0.7; cursor:not-allowed;}
-.fsuccess{display:none;background:rgba(46,160,90,0.12);border:1px solid rgba(46,160,90,0.25);color:#6ee7b7;border-radius:3px;padding:.7rem 1rem;font-size:.82rem;text-align:center;margin-top:.8rem;}
+.fsuccess{display:none;background:rgba(46,160,90,0.05);border:1px solid rgba(46,160,90,0.2);color:#27ae60;padding:1.5rem;font-size:.9rem;text-align:center;margin-top:2rem;}
 
-/* FOOTER */
-.footer{background:#0a1220;padding:2rem;text-align:center;border-top:1px solid rgba(184,154,90,0.15);}
-.footer-logo{font-family:var(--fd);font-size:1.1rem;font-weight:700;color:rgba(255,255,255,0.5);margin-bottom:.4rem;}
-.footer-logo em{color:var(--gold);font-style:normal;}
-.footer-sub{font-size:.74rem;color:rgba(255,255,255,0.22);line-height:2;}
+/* FOOTER & QR CODE */
+.footer{background:var(--navy);padding:5rem 2rem 2rem; border-top:1px solid rgba(255,255,255,0.05);}
+.footer-grid {max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem;}
+.footer-col h4 {font-family: var(--fd); font-size: 1.3rem; color: var(--white); margin-bottom: 1.5rem; font-weight: 400;}
+.footer-text {font-size: .85rem; color: rgba(255,255,255,0.5); line-height: 1.8; font-weight: 300;}
+.qr-code-box {background: var(--white); padding: 10px; display: inline-block; border-radius: 2px;}
+.qr-code-box img {width: 100px; height: 100px; display: block;}
+.qr-caption {font-size: .7rem; color: var(--gold); text-transform: uppercase; letter-spacing: .1em; margin-top: .8rem; display: block;}
+.footer-bottom {text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.05); font-size: .75rem; color: rgba(255,255,255,0.3);}
 
-/* SCROLL ANIMATION */
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
-.reveal.visible{opacity:1;transform:translateY(0);}
-
-/* =========================================
-   MEDIA QUERIES - RESPONSIVE MOBILE 
-   ========================================= */
+/* MEDIA QUERIES */
 @media (max-width: 900px) {
-  .svc-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; background: transparent; }
-  .svc-card { border: 1px solid rgba(0,0,0,0.1); border-radius: 8px; }
+  .svc-grid { grid-template-columns: repeat(2, 1fr); }
   .mat-grid { grid-template-columns: repeat(2, 1fr); }
-  .process-steps { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
-  .process-steps::before { display: none; }
+  .process-steps { grid-template-columns: repeat(2, 1fr); }
+  .dirigeant-inner { grid-template-columns: 1fr; gap: 2rem;}
+  .dir-img-wrapper { max-width: 400px; margin: 0 auto; padding-bottom: 100%;}
+  .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 768px) {
-  .nav { flex-wrap: wrap; height: auto; padding: 1rem 1.5rem; }
+  .nav { padding: 1rem 1.5rem; background: rgba(21,23,25,0.98); border-bottom: 1px solid rgba(255,255,255,0.05); height: 75px;}
+  .nav.scrolled { height: 75px; }
   .menu-toggle { display: block; }
-  .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding-top: 1rem; padding-bottom: 0.5rem; text-align: center; }
+  .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding-top: 1.5rem; padding-bottom: 1.5rem; text-align: center; background: var(--navy); position: absolute; top: 100%; left: 0; border-top: 1px solid rgba(255,255,255,0.05);}
   .nav-links.active { display: flex; }
   .nav-cta { display: inline-block; }
 
-  .section, .mat-full, .process-full, .chiffres-full, .zone-full, .contact-full { padding: 3.5rem 1.5rem; overflow-x: hidden; }
+  .section, .mat-full, .process-full, .chiffres-full, .dirigeant-full, .brochure-full, .contact-full { padding: 4rem 1.5rem; }
+  .sec-label { justify-content: center; }
+  .sec-title, .sec-intro { text-align: center; }
   
-  .hero { grid-template-columns: 1fr; min-height: auto; }
+  .hero { grid-template-columns: 1fr; padding-top: 80px; min-height: auto;}
   .hero-left { padding: 3rem 1.5rem; text-align: center; }
-  .hero-sub { margin: 0 auto 2rem; }
+  .hero-tag { justify-content: center; }
+  .hero-sub { margin: 0 auto 2.5rem; }
   .hero-btns { justify-content: center; }
   .hero-right { height: 350px; }
-  .hero-right::before { background: linear-gradient(to top, var(--navy) 0%, transparent 60%); }
+  .hero-img { animation: none; }
+  .hero-right::before { background: linear-gradient(to top, var(--navy) 0%, transparent 80%); }
 
-  .stats { flex-wrap: wrap; }
-  .stat { width: 50%; border-bottom: 1px solid rgba(184,154,90,0.15); }
-  .stat:nth-child(even) { border-right: none; }
-  .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
+  .stats { flex-direction: column; }
+  .stat { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); padding: 2rem; }
 
-  .svc-grid { grid-template-columns: 1fr; }
-  .mat-grid { grid-template-columns: 1fr; }
-  .eng-grid { grid-template-columns: 1fr; }
-  .chiffres-grid { grid-template-columns: 1fr; gap: 1rem; }
-  .process-steps { grid-template-columns: 1fr; gap: 2rem; }
-  .zone-container { grid-template-columns: 1fr; }
+  .svc-grid, .mat-grid, .chiffres-grid, .process-steps, .footer-grid { grid-template-columns: 1fr; gap: 2rem;}
   
   .frow { grid-template-columns: 1fr; gap: 0; }
-  .cform { padding: 1.5rem; }
+  .cform { padding: 2rem 1.5rem; margin-top: 2rem;}
 }
 </style>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 </head><body><div class="w">
   
-  <nav class="nav">
-    <div class="logo">CMS <em>Expertise</em></div>
+  <nav class="nav" id="navbar">
+    <!-- EMPLACEMENT LOGO NAV -->
+    <a href="#" style="display:flex; align-items:center; text-decoration:none;">
+      <img src="VOTRE_LOGO_ICI.png" alt="CMS Expertise" class="logo-img">
+    </a>
+    
     <div class="menu-toggle" onclick="toggleMenu()">
       <i class="ti ti-menu-2" id="menu-icon"></i>
     </div>
     <ul class="nav-links" id="nav-links">
-      <li><a onclick="goTo('svc')">Services</a></li>
+      <li><a onclick="goTo('svc')">Expertises</a></li>
       <li><a onclick="goTo('mat')">Matériaux</a></li>
-      <li><a onclick="goTo('proc')">Notre méthode</a></li>
-      <li><a onclick="goTo('chiffres')">Nos réalisations</a></li>
+      <li><a onclick="goTo('dirigeant')">L'Entreprise</a></li>
+      <li><a onclick="goTo('brochure')">Nos Références</a></li>
       <li><a class="nav-cta" onclick="goTo('contact')">Devis gratuit</a></li>
     </ul>
   </nav>
 
   <section class="hero">
-    <div class="hero-left">
-      <div class="hero-tag"><i class="ti ti-map-pin" aria-hidden="true"></i> Saint-Prix · Val d'Oise · IDF</div>
-      <h1>L'art de la <span>toiture</span>, transmis par des experts</h1>
-      <p class="hero-sub">CMS Expertise, couvreurs qualifiés basés en Val d'Oise, vous accompagne pour chaque projet : rénovation, réparation, démoussage, fenêtres de toit et charpente bois.</p>
+    <div class="hero-left reveal">
+      <div class="hero-tag"><i class="ti ti-map-pin" aria-hidden="true"></i> Val d'Oise & Île-de-France</div>
+      <h1>L'excellence de la <i>couverture</i> et de la zinguerie.</h1>
+      <p class="hero-sub">CMS Expertise allie savoir-faire traditionnel et technicité pour concevoir, rénover et protéger votre patrimoine immobilier dans les règles de l'art.</p>
       <div class="hero-btns">
-        <button class="btn-gold" onclick="goTo('contact')">Demander un devis →</button>
-        <button class="btn-ghost" onclick="goTo('svc')">Découvrir nos services</button>
+        <button class="btn-gold" onclick="goTo('contact')">Étude de projet</button>
+        <button class="btn-ghost" onclick="goTo('svc')">Nos savoir-faire</button>
       </div>
     </div>
-    <div class="hero-right">
-      <img class="hero-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&amp;auto=format&amp;fit=crop&amp;q=80" alt="Toiture rénovée en ardoise" loading="lazy">
+    <div class="hero-right reveal delay-2">
+      <img class="hero-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1000&amp;auto=format&amp;fit=crop&amp;q=80" alt="Toiture rénovée haut de gamme" loading="lazy">
     </div>
   </section>
 
-  <div class="stats">
-    <div class="stat"><span class="stat-n">2</span><span class="stat-l">Couvreurs qualifiés</span></div>
-    <div class="stat"><span class="stat-n">5</span><span class="stat-l">Spécialités</span></div>
-    <div class="stat"><span class="stat-n">6</span><span class="stat-l">Matériaux</span></div>
-    <div class="stat"><span class="stat-n">95</span><span class="stat-l">Val d'Oise &amp; IDF</span></div>
+  <div class="stats reveal delay-3">
+    <div class="stat"><span class="stat-n"><span class="counter" data-val="15">0</span></span><span class="stat-l">Années d'expérience</span></div>
+    <div class="stat"><span class="stat-n"><span class="counter" data-val="500" data-suffix="+">0</span></span><span class="stat-l">Chantiers réalisés</span></div>
+    <div class="stat"><span class="stat-n"><span class="counter" data-val="10">0</span></span><span class="stat-l">Garantie Décennale</span></div>
   </div>
 
-  <div id="svc">
-    <div class="section reveal visible">
-      <div class="sec-label">Ce que nous faisons</div>
-      <h2 class="sec-title">Nos services de couverture</h2>
-      <div class="sec-bar"></div>
-      <p class="sec-intro">De l'entretien préventif à la rénovation totale, notre équipe intervient sur tous types de toitures en Île-de-France avec le plus grand soin.</p>
-      <div class="svc-grid">
-        
-        <div class="svc-card">
-          <img class="svc-photo" src="https://images.unsplash.com/photo-1600585154526-990dced4db0d?w=400&amp;auto=format&amp;fit=crop&amp;q=70" alt="Nettoyage toiture" loading="lazy">
-          <i class="ti ti-droplet svc-icon" aria-hidden="true"></i>
-          <div class="svc-name">Décrassage &amp; démoussage</div>
-          <p class="svc-desc">Élimination des mousses, lichens et salissures pour prolonger la durée de vie et retrouver l'aspect d'une toiture neuve.</p>
-          <span class="svc-link" onclick="toggleInfo(this)">En savoir plus <i class="ti ti-chevron-down"></i></span>
-          <div class="svc-details">
-            <strong>Détails :</strong> Application d'un traitement hydrofuge et fongicide professionnel. Ce procédé imperméabilise vos tuiles et retarde considérablement la réapparition des végétaux sans abîmer les matériaux.
-          </div>
-        </div>
-
-        <div class="svc-card">
-          <img class="svc-photo" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&amp;auto=format&amp;fit=crop&amp;q=70" alt="Réparation toiture" loading="lazy">
-          <i class="ti ti-tool svc-icon" aria-hidden="true"></i>
-          <div class="svc-name">Réparation &amp; dépannage</div>
-          <p class="svc-desc">Intervention rapide sur tuiles cassées, fuites, infiltrations ou tout problème ponctuel. Nous diagnostiquons et réparons.</p>
-          <span class="svc-link" onclick="toggleInfo(this)">En savoir plus <i class="ti ti-chevron-down"></i></span>
-          <div class="svc-details">
-            <strong>Détails :</strong> Nous assurons la mise hors d'eau rapide (bâchage si nécessaire), la recherche de fuite précise et le remplacement des éléments de couverture endommagés (tuiles, faîtages, solins).
-          </div>
-        </div>
-
-        <div class="svc-card">
-          <img class="svc-photo" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&amp;auto=format&amp;fit=crop&amp;q=70" alt="Rénovation couverture" loading="lazy">
-          <i class="ti ti-home svc-icon" aria-hidden="true"></i>
-          <div class="svc-name">Rénovation de couverture</div>
-          <p class="svc-desc">Changement complet de toiture avec pose d'isolants, écrans sous-toiture et matériaux haut de gamme de votre choix.</p>
-          <span class="svc-link" onclick="toggleInfo(this)">En savoir plus <i class="ti ti-chevron-down"></i></span>
-          <div class="svc-details">
-            <strong>Détails :</strong> Dépose de l'ancienne couverture, vérification de la charpente, pose d'un écran de sous-toiture HPV et installation du nouveau revêtement (tuiles, zinc, ardoises) dans les règles de l'art (DTU).
-          </div>
-        </div>
-
-        <div class="svc-card">
-          <img class="svc-photo" src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&amp;auto=format&amp;fit=crop&amp;q=70" alt="Fenêtre de toit" loading="lazy">
-          <i class="ti ti-window svc-icon" aria-hidden="true"></i>
-          <div class="svc-name">Fenêtre de toit</div>
-          <p class="svc-desc">Fourniture et installation de fenêtres de toit pour apporter lumière et ventilation naturelle à vos combles.</p>
-          <span class="svc-link" onclick="toggleInfo(this)">En savoir plus <i class="ti ti-chevron-down"></i></span>
-          <div class="svc-details">
-            <strong>Détails :</strong> Création de chevêtre sur-mesure dans la charpente, pose de fenêtres type Velux (motorisées ou manuelles), création de l'étanchéité extérieure et finitions intérieures.
-          </div>
-        </div>
-
-        <div class="svc-card">
-          <img class="svc-photo" src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=400&amp;auto=format&amp;fit=crop&amp;q=70" alt="Charpente bois" loading="lazy">
-          <i class="ti ti-building-arch svc-icon" aria-hidden="true"></i>
-          <div class="svc-name">Charpente bois</div>
-          <p class="svc-desc">Installation complète de charpente traditionnelle en bois, fondation solide garantissant la longévité de votre couverture.</p>
-          <span class="svc-link" onclick="toggleInfo(this)">En savoir plus <i class="ti ti-chevron-down"></i></span>
-          <div class="svc-details">
-            <strong>Détails :</strong> Conception, taille et levage de charpente traditionnelle ou fermette. Nous proposons également le traitement curatif et préventif des bois contre les insectes xylophages.
-          </div>
-        </div>
-
-        <div class="svc-card">
-          <div class="svc-photo-placeholder"><i class="ti ti-shield-check" aria-hidden="true"></i></div>
-          <i class="ti ti-thermometer svc-icon" aria-hidden="true"></i>
-          <div class="svc-name">Isolation &amp; sous-toiture</div>
-          <p class="svc-desc">Pose d'isolants thermiques et d'écrans de sous-toiture conformes aux normes RT2020 pour une maison performante.</p>
-          <span class="svc-link" onclick="toggleInfo(this)">En savoir plus <i class="ti ti-chevron-down"></i></span>
-          <div class="svc-details">
-            <strong>Détails :</strong> Isolation par l'extérieur (Sarking) pour ne pas perdre d'espace habitable, ou isolation classique des combles perdus par soufflage de laine minérale ou ouate de cellulose.
-          </div>
-        </div>
-
+  <div id="svc" class="section">
+    <div class="sec-label reveal" style="justify-content:center;">Nos Domaines d'Expertise</div>
+    <h2 class="sec-title reveal delay-1" style="text-align:center;">Un savoir-faire artisanal complet</h2>
+    <p class="sec-intro reveal delay-2">De la structure en bois jusqu'aux finitions métalliques de précision, nos équipes maîtrisent l'intégralité de l'enveloppe extérieure de votre bâtiment.</p>
+    
+    <div class="svc-grid">
+      
+      <!-- CARTE 1: ZINGUERIE -->
+      <div class="svc-card reveal">
+        <i class="ti ti-ruler-measure svc-icon" aria-hidden="true"></i>
+        <div class="svc-name">Zinguerie sur-mesure</div>
+        <p class="svc-desc">Travail de précision sur métaux (zinc, cuivre) pour assurer une étanchéité parfaite et une esthétique incomparable de vos toitures.</p>
+        <ul class="svc-features">
+          <li><i class="ti ti-check"></i> Chéneaux et gouttières pendantes</li>
+          <li><i class="ti ti-check"></i> Abergements de cheminée / Velux</li>
+          <li><i class="ti ti-check"></i> Couvertures à joint debout</li>
+        </ul>
+        <span class="svc-link" onclick="goTo('contact')">Demander un devis <i class="ti ti-arrow-right"></i></span>
       </div>
+
+      <!-- CARTE 2: CHARPENTE -->
+      <div class="svc-card reveal delay-1">
+        <i class="ti ti-building-arch svc-icon" aria-hidden="true"></i>
+        <div class="svc-name">Charpente bois</div>
+        <p class="svc-desc">Création, rénovation et renforcement de l'ossature bois de votre toiture, l'élément fondamental qui soutient l'ensemble de la couverture.</p>
+        <ul class="svc-features">
+          <li><i class="ti ti-check"></i> Charpente traditionnelle & fermette</li>
+          <li><i class="ti ti-check"></i> Modification pour aménagement de combles</li>
+          <li><i class="ti ti-check"></i> Traitement curatif et préventif du bois</li>
+        </ul>
+        <span class="svc-link" onclick="goTo('contact')">Demander un devis <i class="ti ti-arrow-right"></i></span>
+      </div>
+
+      <!-- CARTE 3: BARDAGE & HABILLAGE -->
+      <div class="svc-card reveal delay-2">
+        <i class="ti ti-border-outer svc-icon" aria-hidden="true"></i>
+        <div class="svc-name">Bardage & Habillage</div>
+        <p class="svc-desc">Protection et valorisation de vos façades et débords de toit grâce à des revêtements esthétiques, durables et sans entretien.</p>
+        <ul class="svc-features">
+          <li><i class="ti ti-check"></i> Habillage de planches de rive et sous-faces</li>
+          <li><i class="ti ti-check"></i> Bardage bois, composite ou métallique</li>
+          <li><i class="ti ti-check"></i> Isolation Thermique par l'Extérieur (ITE)</li>
+        </ul>
+        <span class="svc-link" onclick="goTo('contact')">Demander un devis <i class="ti ti-arrow-right"></i></span>
+      </div>
+
+      <!-- CARTE 4: COUVERTURE -->
+      <div class="svc-card reveal">
+        <i class="ti ti-home svc-icon" aria-hidden="true"></i>
+        <div class="svc-name">Rénovation de toiture</div>
+        <p class="svc-desc">Remplacement complet ou partiel de votre couverture avec les matériaux adaptés au patrimoine local et aux normes énergétiques.</p>
+        <ul class="svc-features">
+          <li><i class="ti ti-check"></i> Pose de tuiles, ardoises, zinc</li>
+          <li><i class="ti ti-check"></i> Écran de sous-toiture HPV</li>
+          <li><i class="ti ti-check"></i> Recherche de fuite et mise hors d'eau</li>
+        </ul>
+        <span class="svc-link" onclick="goTo('contact')">Demander un devis <i class="ti ti-arrow-right"></i></span>
+      </div>
+
+      <!-- CARTE 5: DÉMOUSSAGE -->
+      <div class="svc-card reveal delay-1">
+        <i class="ti ti-droplet svc-icon" aria-hidden="true"></i>
+        <div class="svc-name">Entretien & Démoussage</div>
+        <p class="svc-desc">Nettoyage professionnel et traitement en profondeur pour préserver vos tuiles de la porosité et des dégâts liés au gel.</p>
+        <ul class="svc-features">
+          <li><i class="ti ti-check"></i> Nettoyage basse pression respectueux</li>
+          <li><i class="ti ti-check"></i> Application de traitement anti-mousse</li>
+          <li><i class="ti ti-check"></i> Traitement hydrofuge (imperméabilisation)</li>
+        </ul>
+        <span class="svc-link" onclick="goTo('contact')">Demander un devis <i class="ti ti-arrow-right"></i></span>
+      </div>
+
+      <!-- CARTE 6: VELUX -->
+      <div class="svc-card reveal delay-2">
+        <i class="ti ti-window svc-icon" aria-hidden="true"></i>
+        <div class="svc-name">Fenêtres de toit</div>
+        <p class="svc-desc">Création d'ouvertures pour transformer vos combles en espaces de vie lumineux, ventilés et parfaitement isolés.</p>
+        <ul class="svc-features">
+          <li><i class="ti ti-check"></i> Fourniture et pose de Velux</li>
+          <li><i class="ti ti-check"></i> Remplacement d'anciens châssis</li>
+          <li><i class="ti ti-check"></i> Pose de volets roulants solaires</li>
+        </ul>
+        <span class="svc-link" onclick="goTo('contact')">Demander un devis <i class="ti ti-arrow-right"></i></span>
+      </div>
+
     </div>
   </div>
 
   <div id="mat" class="mat-full">
-    <div class="mat-inner reveal visible">
-      <div class="sec-label" style="color:var(--gold3)">Matériaux de couverture</div>
-      <h2 class="sec-title">6 revêtements, un expert</h2>
-      <div class="sec-bar"></div>
-      <p class="sec-intro">Nous maîtrisons l'ensemble des matériaux pour s'adapter à votre architecture, votre budget et vos préférences esthétiques.</p>
+    <div class="section" style="padding:0;">
+      <div class="sec-label reveal" style="justify-content:center;">Choix des Matériaux</div>
+      <h2 class="sec-title reveal delay-1" style="text-align:center;">L'alliance de l'esthétique et de la pérennité</h2>
+      <p class="sec-intro reveal delay-2">Nous sélectionnons rigoureusement nos matériaux auprès des meilleurs fournisseurs pour garantir des toitures qui traversent les décennies.</p>
+      
       <div class="mat-grid">
-        <div class="mat-card"><i class="ti ti-square-rotated" aria-hidden="true"></i><div class="mat-name">Ardoise naturelle</div><p class="mat-desc">Élégance intemporelle, durabilité exceptionnelle, idéale pour les maisons de caractère en Île-de-France.</p></div>
-        <div class="mat-card"><i class="ti ti-layout-grid" aria-hidden="true"></i><div class="mat-name">Tuiles</div><p class="mat-desc">Canal, romane ou plate, la tuile terre cuite offre charme traditionnel et résistance aux intempéries.</p></div>
-        <div class="mat-card"><i class="ti ti-layers" aria-hidden="true"></i><div class="mat-name">Shingle</div><p class="mat-desc">Solution économique et polyvalente, le bardeau bitumineux s'adapte aux toitures à faible pente.</p></div>
-        <div class="mat-card"><i class="ti ti-brand-terraform" aria-hidden="true"></i><div class="mat-name">Zinc</div><p class="mat-desc">Zinc prépatiné ou naturel, esthétique contemporaine et longévité remarquable, jusqu'à 100 ans.</p></div>
-        <div class="mat-card"><i class="ti ti-coin" aria-hidden="true"></i><div class="mat-name">Cuivre</div><p class="mat-desc">Le matériau noble par excellence, qui développe au fil du temps sa belle patine verte caractéristique.</p></div>
-        <div class="mat-card"><i class="ti ti-bolt" aria-hidden="true"></i><div class="mat-name">Acier</div><p class="mat-desc">Bac acier laqué ou galvanisé, robustesse industrielle et grande facilité de pose sur grandes surfaces.</p></div>
+        <div class="mat-card reveal"><i class="ti ti-square-rotated" aria-hidden="true"></i><div class="mat-name">Ardoise Naturelle</div><p class="mat-desc">Un charme authentique, une longévité dépassant le siècle et une élégance incomparable pour les demeures de caractère.</p></div>
+        <div class="mat-card reveal delay-1"><i class="ti ti-brand-terraform" aria-hidden="true"></i><div class="mat-name">Zinc Prépatiné</div><p class="mat-desc">Matériau noble par excellence, le zinc offre une esthétique contemporaine et s'adapte aux toitures les plus complexes.</p></div>
+        <div class="mat-card reveal delay-2"><i class="ti ti-layout-grid" aria-hidden="true"></i><div class="mat-name">Tuile Terre Cuite</div><p class="mat-desc">Plate, romane ou canal, elle respecte l'architecture traditionnelle de notre région avec une excellente résistance.</p></div>
       </div>
+    </div>
+  </div>
+
+  <!-- NOUVELLE SECTION : DIRIGEANT -->
+  <div id="dirigeant" class="dirigeant-full">
+    <div class="dirigeant-inner">
+      <div class="dir-img-wrapper reveal">
+        <!-- PLACEHOLDER PHOTO DU DIRIGEANT -->
+        <img src="VOTRE_PHOTO_DIRIGEANT_ICI.jpg" alt="Mahdi Sandali - Dirigeant CMS Expertise" class="dir-img">
+      </div>
+      <div class="dir-content reveal delay-1">
+        <div class="sec-label">Le mot du fondateur</div>
+        <h2>Mahdi Sandali</h2>
+        <span class="dir-role">Artisan Couvreur & Dirigeant de CMS Expertise</span>
+        <p class="dir-text">« Avec plus de 15 années passées sur les toits d'Île-de-France, ma vision a toujours été claire : allier la rigueur de l'artisanat traditionnel aux exigences thermiques d'aujourd'hui.</p>
+        <p class="dir-text">Chez CMS Expertise, nous ne faisons aucun compromis sur la qualité des matériaux ni sur la précision de la mise en œuvre. Qu'il s'agisse de restaurer une charpente centenaire, de concevoir une zinguerie complexe ou d'isoler vos combles, mon équipe et moi-même nous engageons à vous livrer un travail irréprochable.</p>
+        <p class="dir-text">Votre maison abrite ce que vous avez de plus précieux. La protéger est notre métier, vous satisfaire est notre fierté. »</p>
+        <div class="dir-sign">M. Sandali</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- NOUVELLE SECTION : PLAQUETTE DE RÉFÉRENCE -->
+  <div id="brochure" class="brochure-full">
+    <div class="brochure-inner reveal">
+      <div class="sec-label" style="color:var(--gold); justify-content:center;">Nos Réalisations BTP</div>
+      <h2 class="sec-title">Découvrez l'étendue de notre expertise</h2>
+      <p>Particuliers, architectes ou syndics de copropriété : parcourez notre plaquette de référence détaillant nos chantiers les plus emblématiques, nos méthodes de travail et nos garanties.</p>
+      
+      <!-- LIEN VERS VOTRE PDF ICI -->
+      <a href="VOTRE_FICHIER_PLAQUETTE.pdf" download class="btn-download">
+        Télécharger la plaquette <i class="ti ti-download"></i>
+      </a>
     </div>
   </div>
 
   <div id="proc" class="process-full">
-    <div class="process-inner reveal visible">
-      <div class="sec-label">Notre méthode</div>
-      <h2 class="sec-title">Comment nous travaillons</h2>
-      <div class="sec-bar"></div>
-      <p class="sec-intro">Un processus clair, transparent et rigoureux à chaque étape de votre projet. Nos experts vous accompagnent de A à Z.</p>
+    <div class="process-inner">
+      <div class="sec-label reveal" style="justify-content:center;">Processus d'intervention</div>
+      <h2 class="sec-title reveal delay-1">Une méthodologie rigoureuse</h2>
+      
       <div class="process-steps">
-        <div class="step"><div class="step-num">1</div><div class="step-title">Visite &amp; diagnostic</div><p class="step-desc">Évaluation gratuite de votre toiture et écoute de vos besoins directement sur site.</p></div>
-        <div class="step"><div class="step-num">2</div><div class="step-title">Devis détaillé</div><p class="step-desc">Proposition chiffrée, détaillée ligne par ligne et transparente, sans frais cachés.</p></div>
-        <div class="step"><div class="step-num">3</div><div class="step-title">Réalisation</div><p class="step-desc">Intervention soignée par nos artisans qualifiés, dans le respect strict des délais.</p></div>
-        <div class="step"><div class="step-num">4</div><div class="step-title">Réception &amp; garantie</div><p class="step-desc">Contrôle qualité final rigoureux et remise de la garantie décennale.</p></div>
-      </div>
-      <div class="eng-grid">
-        <div class="eng-card"><div class="eng-icon"><i class="ti ti-certificate" aria-hidden="true"></i></div><div><div class="eng-title">Normes respectées (DTU)</div><p class="eng-text">Pose d'isolants et de matériaux conformes aux normes et réglementations thermiques en vigueur.</p></div></div>
-        <div class="eng-card"><div class="eng-icon"><i class="ti ti-users" aria-hidden="true"></i></div><div><div class="eng-title">Équipe qualifiée</div><p class="eng-text">Des couvreurs-zingueurs professionnels et passionnés affectés à chacun de vos chantiers.</p></div></div>
-        <div class="eng-card"><div class="eng-icon"><i class="ti ti-clock" aria-hidden="true"></i></div><div><div class="eng-title">Réactivité garantie</div><p class="eng-text">Dépannage et urgences traités en priorité pour sécuriser votre bien.</p></div></div>
-        <div class="eng-card"><div class="eng-icon"><i class="ti ti-heart" aria-hidden="true"></i></div><div><div class="eng-title">Satisfaction totale</div><p class="eng-text">Un suivi personnalisé et un chantier laissé impeccable avant notre départ définitif.</p></div></div>
-      </div>
-    </div>
-  </div>
-
-  <div id="chiffres" class="chiffres-full">
-    <div class="chiffres-inner reveal visible">
-      <div class="sec-label">Notre expérience</div>
-      <h2 class="sec-title">CMS Expertise en chiffres</h2>
-      <div class="sec-bar" style="margin: 0 auto 1.2rem;"></div>
-      <p class="sec-intro" style="margin: 0 auto;">L'excellence de notre savoir-faire se traduit par la confiance accordée par nos nombreux clients à travers toute la région.</p>
-      
-      <div class="chiffres-grid">
-        <div class="c-box">
-          <div class="c-num">500+</div>
-          <div class="c-label">Chantiers réalisés</div>
-          <div class="c-text">Des toitures rénovées, réparées ou isolées avec succès chez les particuliers et professionnels.</div>
-        </div>
-        <div class="c-box">
-          <div class="c-num">15</div>
-          <div class="c-label">Ans d'expérience</div>
-          <div class="c-text">Une expertise forgée au fil des années pour maîtriser les techniques de couverture les plus complexes.</div>
-        </div>
-        <div class="c-box">
-          <div class="c-num">10</div>
-          <div class="c-label">Ans de Garantie</div>
-          <div class="c-text">Tous nos travaux de gros œuvre sont couverts par une Garantie Décennale pour votre sérénité totale.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div id="zone" class="zone-full reveal visible">
-    <div class="sec-label" style="color:var(--gold3)">Où nous intervenons</div>
-    <h2 class="sec-title">Notre zone d'intervention</h2>
-    <div class="sec-bar"></div>
-    <p class="sec-intro" style="max-width:500px;">Basés à Saint-Prix (95390), nos équipes se déplacent rapidement sur tout le Val d'Oise et la région Île-de-France.</p>
-    
-    <div class="zone-container">
-      <div class="zone-tags">
-        <div class="zone-tag"><div class="zone-dot"></div>Saint-Prix (95390)</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Val d'Oise (95)</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Île-de-France</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Cergy-Pontoise</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Argenteuil</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Enghien-les-Bains</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Montmorency</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Pontoise</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Sarcelles</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Ermont</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Deuil-la-Barre</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Herblay</div>
-        <div class="zone-tag"><div class="zone-dot"></div>Taverny</div>
-      </div>
-      
-      <div class="zone-map">
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d167732.14717144883!2d2.0833908860710684!3d49.03541571168128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e66050b18dd3e5%3A0x30b82c3688b2eb0!2sVal-d&#39;Oise!5e0!3m2!1sfr!2sfr!4v1699999999999!5m2!1sfr!2sfr" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <div class="step reveal"><div class="step-num">01</div><div class="step-title">Diagnostic</div><p class="step-desc">Inspection technique sur site, prise de cotes et écoute attentive de vos besoins.</p></div>
+        <div class="step reveal delay-1"><div class="step-num">02</div><div class="step-title">Étude & Devis</div><p class="step-desc">Rédaction d'une proposition chiffrée détaillée, ligne par ligne, sans frais cachés.</p></div>
+        <div class="step reveal delay-2"><div class="step-num">03</div><div class="step-title">Exécution</div><p class="step-desc">Mise en œuvre par nos propres compagnons qualifiés dans le respect des DTU.</p></div>
+        <div class="step reveal delay-3"><div class="step-num">04</div><div class="step-title">Réception</div><p class="step-desc">Nettoyage du chantier, contrôle final et remise de votre garantie décennale.</p></div>
       </div>
     </div>
   </div>
 
   <div id="contact" class="contact-full">
-    <div class="contact-inner reveal visible">
-      <div class="sec-label" style="color:var(--gold3)">Contactez-nous</div>
-      <h2 class="sec-title">Votre devis gratuit</h2>
-      <div class="sec-bar"></div>
-      <p class="sec-intro">Décrivez votre projet et recevez un devis personnalisé sous 24h. Sans engagement.</p>
+    <div class="contact-inner">
+      <div class="sec-label reveal" style="justify-content:center;">Demande d'étude</div>
+      <h2 class="sec-title reveal delay-1">Votre projet mérite l'excellence</h2>
+      <p class="sec-intro reveal delay-2">Contactez-nous pour une évaluation gratuite de votre toiture. M. Sandali ou l'un de nos experts vous recontactera dans les plus brefs délais.</p>
       
-      <!-- DÉBUT DE LA ZONE FORMULAIRE MODIFIÉE -->
-      <div class="cform">
+      <!-- FORMULAIRE (Fonctionnel avec Javascript en bas) -->
+      <div class="cform reveal delay-3">
         <div class="frow">
-          <div class="ffield"><label>Prénom</label><input type="text" id="fp" placeholder="Jean"></div>
-          <div class="ffield"><label>Nom</label><input type="text" id="fn" placeholder="Dupont"></div>
-        </div>
-        <div class="frow">
+          <div class="ffield"><label>Prénom & Nom</label><input type="text" id="fn" placeholder="Ex: Jean Dupont"></div>
           <div class="ffield"><label>Téléphone</label><input type="tel" id="ft" placeholder="06 XX XX XX XX"></div>
-          <div class="ffield"><label>Email</label><input type="email" id="fe" placeholder="jean@mail.fr"></div>
         </div>
-        <div class="ffield"><label>Service souhaité</label>
-          <select id="fs">
-            <option value="">Choisir un service...</option>
-            <option>Décrassage / démoussage</option>
-            <option>Réparation / dépannage urgent</option>
-            <option>Rénovation de couverture</option>
-            <option>Fenêtre de toit</option>
-            <option>Charpente bois</option>
-            <option>Isolation &amp; sous-toiture</option>
-            <option>Autre</option>
-          </select>
+        <div class="frow">
+          <div class="ffield"><label>Email</label><input type="email" id="fe" placeholder="votre@email.fr"></div>
+          <div class="ffield"><label>Nature des travaux</label>
+            <select id="fs">
+              <option value="">Sélectionnez un domaine...</option>
+              <option>Zinguerie (gouttières, joint debout...)</option>
+              <option>Charpente bois</option>
+              <option>Bardage & Habillage sous-toiture</option>
+              <option>Rénovation de toiture</option>
+              <option>Démoussage & Entretien</option>
+              <option>Fenêtres de toit (Velux)</option>
+              <option>Autre demande</option>
+            </select>
+          </div>
         </div>
-        <div class="ffield"><label>Votre message</label><textarea id="fm" placeholder="Décrivez votre projet, votre adresse, votre situation..."></textarea></div>
+        <div class="ffield"><label>Détails du projet</label><textarea id="fm" placeholder="Décrivez votre besoin, l'état actuel, votre ville..."></textarea></div>
         
-        <!-- On passe 'this' pour modifier le bouton pendant le chargement -->
-        <button class="fsub" onclick="submitForm(this)">Envoyer ma demande →</button>
+        <button class="fsub" onclick="submitForm(this)">Transmettre la demande</button>
         <div class="fsuccess" id="fsuccess"></div>
       </div>
-      <!-- FIN DE LA ZONE FORMULAIRE -->
-
     </div>
   </div>
 
   <footer class="footer">
-    <div class="footer-logo">CMS <em>Expertise</em></div>
-    <div class="footer-sub">Couvreurs professionnels · Saint-Prix (95390) · Val d'Oise · Île-de-France<br>Décrassage · Réparation · Rénovation · Fenêtre de toit · Charpente · Isolation</div>
+    <div class="footer-grid reveal">
+      <div class="footer-col">
+        <!-- EMPLACEMENT LOGO PIED DE PAGE -->
+        <img src="VOTRE_LOGO_ICI.png" alt="CMS Expertise" class="logo-img" style="margin-bottom:1rem; height:50px;">
+        <p class="footer-text">L'artisanat d'excellence au service de l'enveloppe de votre bâtiment. Couverture, zinguerie, charpente et bardage sur l'ensemble du Val d'Oise (95) et de l'Île-de-France.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <p class="footer-text">CMS Expertise<br>Saint-Prix (95390)<br><br>Intervention rapide en IDF.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Scannez-nous</h4>
+        <div class="qr-code-box">
+          <!-- LE QR CODE MAGIQUE (Rien à faire, il prendra l'URL que vous mettrez à la place de "votre-site.fr" ci-dessous) -->
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.votre-site.fr" alt="QR Code CMS Expertise">
+        </div>
+        <span class="qr-caption">Enregistrez nos coordonnées</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      &copy; 2026 CMS Expertise - Tous droits réservés.
+    </div>
   </footer>
 </div>
 
 <script>
+// Navbar dynamique au scroll
+window.addEventListener('scroll', () => {
+  const nav = document.getElementById('navbar');
+  if (window.scrollY > 50) {
+    nav.classList.add('scrolled');
+  } else {
+    if(window.innerWidth > 768) { nav.classList.remove('scrolled'); }
+  }
+});
+if(window.innerWidth <= 768 || window.scrollY > 50) { document.getElementById('navbar').classList.add('scrolled'); }
+
 // Menu Mobile Toggle
 function toggleMenu() {
   const navLinks = document.getElementById('nav-links');
   const icon = document.getElementById('menu-icon');
   navLinks.classList.toggle('active');
   if (navLinks.classList.contains('active')) {
-    icon.classList.remove('ti-menu-2');
-    icon.classList.add('ti-x');
+    icon.classList.remove('ti-menu-2'); icon.classList.add('ti-x');
   } else {
-    icon.classList.remove('ti-x');
-    icon.classList.add('ti-menu-2');
+    icon.classList.remove('ti-x'); icon.classList.add('ti-menu-2');
   }
 }
 
-// Naviguer vers une section et fermer le menu sur mobile
+// Naviguer vers une section
 function goTo(id){
   const el=document.getElementById(id);
   if(el) {
-    el.scrollIntoView({behavior:'smooth',block:'start'});
+    const y = el.getBoundingClientRect().top + window.scrollY - 80;
+    window.scrollTo({top: y, behavior: 'smooth'});
     const navLinks = document.getElementById('nav-links');
-    if (navLinks.classList.contains('active')) {
-        toggleMenu(); 
-    }
+    if (navLinks.classList.contains('active')) { toggleMenu(); }
   }
 }
 
-// Afficher/masquer les détails des services
-function toggleInfo(btn) {
-  const details = btn.nextElementSibling;
-  const icon = btn.querySelector('i');
-  
-  if (details.style.display === 'block') {
-    details.style.display = 'none';
-    btn.classList.remove('active');
-    icon.classList.remove('ti-chevron-up');
-    icon.classList.add('ti-chevron-down');
-  } else {
-    details.style.display = 'block';
-    btn.classList.add('active');
-    icon.classList.remove('ti-chevron-down');
-    icon.classList.add('ti-chevron-up');
-  }
-}
-
-// ==========================================
-// NOUVEAU SCRIPT POUR ENVOYER LE FORMULAIRE
-// ==========================================
+// ENVOI DU FORMULAIRE (N'oubliez pas de mettre votre email)
 function submitForm(btnElement){
-  // 1. Validation des champs
-  const ids=['fp','fn','ft','fe','fs'];
+  const ids=['fn','ft','fe','fs'];
   let ok=true;
   ids.forEach(id=>{
     const el=document.getElementById(id);
-    if(!el.value.trim()){
-      el.style.borderColor='rgba(212,184,122,0.7)';
-      ok=false;
-    } else {
-      el.style.borderColor='';
-    }
+    if(!el.value.trim()){ el.style.borderColor='#c5a880'; ok=false; } 
+    else { el.style.borderColor=''; }
   });
-  
-  // S'il manque un champ, on arrête tout
   if(!ok) return;
 
-  // 2. On désactive le bouton pendant l'envoi
   const originalText = btnElement.innerText;
-  btnElement.innerText = "Envoi en cours...";
+  btnElement.innerText = "Traitement en cours...";
   btnElement.disabled = true;
 
-  // 3. On récupère les données
   const data = {
-    Prénom: document.getElementById('fp').value,
     Nom: document.getElementById('fn').value,
     Téléphone: document.getElementById('ft').value,
     Email: document.getElementById('fe').value,
@@ -573,51 +533,59 @@ function submitForm(btnElement){
     Message: document.getElementById('fm').value
   };
 
-  // 4. Envoi via FormSubmit
-  // REMPLACEZ "VOTRE_EMAIL@gmail.com" CI-DESSOUS PAR VOTRE VRAIE ADRESSE EMAIL
-  fetch("https://formsubmit.co/ajax/cms.expertise75@gmail.com", {
+  // REMPLACEZ VOTRE_EMAIL@gmail.com PAR VOTRE VRAIE ADRESSE
+  fetch("https://formsubmit.co/ajax/VOTRE_EMAIL@gmail.com", {
     method: "POST",
-    headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-    },
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
     body: JSON.stringify(data)
   })
   .then(response => response.json())
   .then(data => {
-    // Si succès
     const successBox = document.getElementById('fsuccess');
     successBox.style.display = 'block';
-    successBox.style.color = '#6ee7b7';
-    successBox.style.borderColor = 'rgba(46,160,90,0.25)';
-    successBox.style.background = 'rgba(46,160,90,0.12)';
-    successBox.innerText = '✓ Votre demande a bien été reçue ! Nous vous recontactons sous 24h.';
-    
-    // On vide les champs
-    ids.forEach(id=>document.getElementById(id).value='');
-    document.getElementById('fm').value='';
-    
-    // On remet le bouton à la normale
-    btnElement.innerText = originalText;
-    btnElement.disabled = false;
+    successBox.innerText = '✓ Votre demande a bien été transmise à notre équipe. Nous vous recontacterons sous 24h.';
+    ids.forEach(id=>document.getElementById(id).value=''); document.getElementById('fm').value='';
+    btnElement.innerText = originalText; btnElement.disabled = false;
   })
   .catch(error => {
-    // Si erreur
     const successBox = document.getElementById('fsuccess');
     successBox.style.display = 'block';
-    successBox.style.color = '#ff9999';
-    successBox.style.borderColor = 'rgba(255,0,0,0.3)';
-    successBox.style.background = 'rgba(255,0,0,0.1)';
-    successBox.innerText = '❌ Une erreur est survenue lors de l\'envoi. Veuillez réessayer.';
-    
-    btnElement.innerText = originalText;
-    btnElement.disabled = false;
+    successBox.style.color = '#e74c3c';
+    successBox.style.background = 'rgba(231, 76, 60, 0.05)';
+    successBox.style.borderColor = 'rgba(231, 76, 60, 0.2)';
+    successBox.innerText = '❌ Une erreur est survenue. Veuillez réessayer ou nous contacter par téléphone.';
+    btnElement.innerText = originalText; btnElement.disabled = false;
   });
 }
 
 // Animations au scroll
-const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target);}});},{threshold:0.12});
-document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+  });
+}, observerOptions);
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// Animation des Compteurs
+const counterObserver = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const target = entry.target;
+      const finalVal = parseInt(target.getAttribute('data-val'));
+      const suffix = target.getAttribute('data-suffix') || '';
+      let currentVal = 0;
+      const duration = 2000; const frameRate = 1000 / 60; const totalFrames = Math.round(duration / frameRate); const increment = finalVal / totalFrames;
+      const updateCounter = () => {
+        currentVal += increment;
+        if (currentVal < finalVal) { target.innerText = Math.ceil(currentVal) + suffix; requestAnimationFrame(updateCounter); } 
+        else { target.innerText = finalVal + suffix; }
+      };
+      updateCounter(); observer.unobserve(target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.counter').forEach(c => counterObserver.observe(c));
 </script>
 </body>
 </html>
