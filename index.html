@@ -110,7 +110,6 @@ html, body {
 .dirigeant-inner {max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 0.8fr 1.2fr; gap: 4rem; align-items: center;}
 .dir-img-wrapper {position: relative; padding-bottom: 110%; /* Ratio portrait */ border-radius: 2px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1);}
 .dir-img-wrapper::after {content:''; position:absolute; inset:20px; border: 1px solid rgba(255,255,255,0.4); pointer-events:none; z-index:2;}
-/* PLACEHOLDER PHOTO MAHDI SANDALI */
 .dir-img {position: absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; z-index:1; filter: grayscale(30%); transition: filter 0.5s;}
 .dir-img-wrapper:hover .dir-img {filter: grayscale(0%);}
 .dir-content h2 {font-family: var(--fd); font-size: 2.5rem; color: var(--navy); margin-bottom: 0.5rem;}
@@ -227,7 +226,6 @@ html, body {
 </head><body><div class="w">
   
   <nav class="nav" id="navbar">
-    <!-- EMPLACEMENT LOGO NAV -->
     <a href="#" style="display:flex; align-items:center; text-decoration:none;">
       <img src="logo sans fond.png" alt="CMS Expertise" class="logo-img">
     </a>
@@ -272,7 +270,6 @@ html, body {
     
     <div class="svc-grid">
       
-      <!-- CARTE 1: ZINGUERIE -->
       <div class="svc-card reveal">
         <i class="ti ti-ruler-measure svc-icon" aria-hidden="true"></i>
         <div class="svc-name">Zinguerie sur-mesure</div>
@@ -285,7 +282,6 @@ html, body {
         <span class="svc-link" onclick="goTo('contact')">Demander un devis <i class="ti ti-arrow-right"></i></span>
       </div>
 
-      <!-- CARTE 2: CHARPENTE -->
       <div class="svc-card reveal delay-1">
         <i class="ti ti-building-arch svc-icon" aria-hidden="true"></i>
         <div class="svc-name">Charpente bois</div>
@@ -298,7 +294,6 @@ html, body {
         <span class="svc-link" onclick="goTo('contact')">Demander un devis <i class="ti ti-arrow-right"></i></span>
       </div>
 
-      <!-- CARTE 3: BARDAGE & HABILLAGE -->
       <div class="svc-card reveal delay-2">
         <i class="ti ti-border-outer svc-icon" aria-hidden="true"></i>
         <div class="svc-name">Bardage & Habillage</div>
@@ -311,7 +306,6 @@ html, body {
         <span class="svc-link" onclick="goTo('contact')">Demander un devis <i class="ti ti-arrow-right"></i></span>
       </div>
 
-      <!-- CARTE 4: COUVERTURE -->
       <div class="svc-card reveal">
         <i class="ti ti-home svc-icon" aria-hidden="true"></i>
         <div class="svc-name">Rénovation de toiture</div>
@@ -324,7 +318,6 @@ html, body {
         <span class="svc-link" onclick="goTo('contact')">Demander un devis <i class="ti ti-arrow-right"></i></span>
       </div>
 
-      <!-- CARTE 5: DÉMOUSSAGE -->
       <div class="svc-card reveal delay-1">
         <i class="ti ti-droplet svc-icon" aria-hidden="true"></i>
         <div class="svc-name">Entretien & Démoussage</div>
@@ -337,7 +330,6 @@ html, body {
         <span class="svc-link" onclick="goTo('contact')">Demander un devis <i class="ti ti-arrow-right"></i></span>
       </div>
 
-      <!-- CARTE 6: VELUX -->
       <div class="svc-card reveal delay-2">
         <i class="ti ti-window svc-icon" aria-hidden="true"></i>
         <div class="svc-name">Fenêtres de toit</div>
@@ -367,11 +359,9 @@ html, body {
     </div>
   </div>
 
-  <!-- NOUVELLE SECTION : DIRIGEANT -->
   <div id="dirigeant" class="dirigeant-full">
     <div class="dirigeant-inner">
       <div class="dir-img-wrapper reveal">
-        <!-- PLACEHOLDER PHOTO DU DIRIGEANT -->
         <img src="photo prof mahdi.jpeg" alt="Mahdi Sandali - Dirigeant CMS Expertise" class="dir-img">
       </div>
       <div class="dir-content reveal delay-1">
@@ -386,14 +376,12 @@ html, body {
     </div>
   </div>
 
-  <!-- NOUVELLE SECTION : PLAQUETTE DE RÉFÉRENCE -->
   <div id="brochure" class="brochure-full">
     <div class="brochure-inner reveal">
       <div class="sec-label" style="color:var(--gold); justify-content:center;">Nos Réalisations BTP</div>
       <h2 class="sec-title">Découvrez l'étendue de notre expertise</h2>
       <p>Particuliers, architectes ou syndics de copropriété : parcourez notre plaquette de référence détaillant nos chantiers les plus emblématiques, nos méthodes de travail et nos garanties.</p>
       
-      <!-- LIEN VERS VOTRE PDF ICI -->
       <a href="Brochure CMS.pdf" download class="btn-download">
         Télécharger la plaquette <i class="ti ti-download"></i>
       </a>
@@ -420,7 +408,6 @@ html, body {
       <h2 class="sec-title reveal delay-1">Votre projet mérite l'excellence</h2>
       <p class="sec-intro reveal delay-2">Contactez-nous pour une évaluation gratuite de votre toiture. M. Sandali ou l'un de nos experts vous recontactera dans les plus brefs délais.</p>
       
-      <!-- FORMULAIRE (Fonctionnel avec Javascript en bas) -->
       <div class="cform reveal delay-3">
         <div class="frow">
           <div class="ffield"><label>Prénom & Nom</label><input type="text" id="fn" placeholder="Ex: Jean Dupont"></div>
@@ -452,7 +439,6 @@ html, body {
   <footer class="footer">
     <div class="footer-grid reveal">
       <div class="footer-col">
-        <!-- EMPLACEMENT LOGO PIED DE PAGE -->
         <img src="logo sans fond.png" alt="CMS Expertise" class="logo-img" style="margin-bottom:1rem; height:90px;">
         <p class="footer-text">L'artisanat d'excellence au service de l'enveloppe de votre bâtiment. Couverture, zinguerie, charpente et bardage sur l'ensemble du Val d'Oise (95) et de l'Île-de-France.</p>
       </div>
@@ -463,10 +449,10 @@ html, body {
       <div class="footer-col">
         <h4>Scannez-nous</h4>
         <div class="qr-code-box">
-          <!-- LE QR CODE MAGIQUE (Rien à faire, il prendra l'URL que vous mettrez à la place de "votre-site.fr" ci-dessous) -->
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://hamzams95.github.io/portfolio/" alt="QR Code CMS Expertise">
+          <!-- LE QR CODE MAGIQUE (LIEN LINKEDIN) -->
+          <img src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.linkedin.com/in/VOTRE_PROFIL_ICI" alt="QR Code LinkedIn Mahdi Sandali">
         </div>
-        <span class="qr-caption">Enregistrez nos coordonnées</span>
+        <span class="qr-caption">LinkedIn du Dirigeant</span>
       </div>
     </div>
     <div class="footer-bottom">
