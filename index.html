@@ -173,12 +173,14 @@ html, body {
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem;}
 .ffield{margin-bottom:.8rem;}
 .ffield label{display:block;font-size:.7rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.3rem;}
-.ffield input,.ffield select,.ffield textarea{width:100%;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.12);border-radius:3px;color:rgba(255,255,255,0.85);font-family:var(--ff);font-size:.85rem;padding:.55rem .8rem;}
+.ffield input,.ffield select,.ffield textarea{width:100%;background:rgba(255,255,255,0.06);border:0.5px solid rgba(255,255,255,0.12);border-radius:3px;color:rgba(255,255,255,0.85);font-family:var(--ff);font-size:.85rem;padding:.55rem .8rem; transition: border-color 0.2s;}
+.ffield input:focus, .ffield select:focus, .ffield textarea:focus {outline: none; border-color: var(--gold);}
 .ffield input::placeholder,.ffield textarea::placeholder{color:rgba(255,255,255,0.25);}
 .ffield select option{background:#1d304f;}
 .ffield textarea{resize:vertical;min-height:80px;}
-.fsub{width:100%;margin-top:.4rem;padding:.8rem;font-size:.88rem;font-weight:600;letter-spacing:.05em;cursor:pointer;border:none;background:var(--gold);color:var(--navy);border-radius:3px;transition:background .2s;}
+.fsub{width:100%;margin-top:.4rem;padding:.8rem;font-size:.88rem;font-weight:600;letter-spacing:.05em;cursor:pointer;border:none;background:var(--gold);color:var(--navy);border-radius:3px;transition:background .2s, opacity .2s;}
 .fsub:hover{background:var(--gold2);}
+.fsub:disabled{opacity:0.7; cursor:not-allowed;}
 .fsuccess{display:none;background:rgba(46,160,90,0.12);border:1px solid rgba(46,160,90,0.25);color:#6ee7b7;border-radius:3px;padding:.7rem 1rem;font-size:.82rem;text-align:center;margin-top:.8rem;}
 
 /* FOOTER */
@@ -203,17 +205,14 @@ html, body {
 }
 
 @media (max-width: 768px) {
-  /* Navigation Mobile */
   .nav { flex-wrap: wrap; height: auto; padding: 1rem 1.5rem; }
   .menu-toggle { display: block; }
   .nav-links { display: none; width: 100%; flex-direction: column; gap: 1rem; padding-top: 1rem; padding-bottom: 0.5rem; text-align: center; }
   .nav-links.active { display: flex; }
   .nav-cta { display: inline-block; }
 
-  /* Sections générales */
   .section, .mat-full, .process-full, .chiffres-full, .zone-full, .contact-full { padding: 3.5rem 1.5rem; overflow-x: hidden; }
   
-  /* Hero Section */
   .hero { grid-template-columns: 1fr; min-height: auto; }
   .hero-left { padding: 3rem 1.5rem; text-align: center; }
   .hero-sub { margin: 0 auto 2rem; }
@@ -221,13 +220,11 @@ html, body {
   .hero-right { height: 350px; }
   .hero-right::before { background: linear-gradient(to top, var(--navy) 0%, transparent 60%); }
 
-  /* Stats */
   .stats { flex-wrap: wrap; }
   .stat { width: 50%; border-bottom: 1px solid rgba(184,154,90,0.15); }
   .stat:nth-child(even) { border-right: none; }
   .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
 
-  /* Grilles 1 colonne pour mobile */
   .svc-grid { grid-template-columns: 1fr; }
   .mat-grid { grid-template-columns: 1fr; }
   .eng-grid { grid-template-columns: 1fr; }
@@ -235,7 +232,6 @@ html, body {
   .process-steps { grid-template-columns: 1fr; gap: 2rem; }
   .zone-container { grid-template-columns: 1fr; }
   
-  /* Formulaire */
   .frow { grid-template-columns: 1fr; gap: 0; }
   .cform { padding: 1.5rem; }
 }
@@ -457,6 +453,8 @@ html, body {
       <h2 class="sec-title">Votre devis gratuit</h2>
       <div class="sec-bar"></div>
       <p class="sec-intro">Décrivez votre projet et recevez un devis personnalisé sous 24h. Sans engagement.</p>
+      
+      <!-- DÉBUT DE LA ZONE FORMULAIRE MODIFIÉE -->
       <div class="cform">
         <div class="frow">
           <div class="ffield"><label>Prénom</label><input type="text" id="fp" placeholder="Jean"></div>
@@ -479,9 +477,13 @@ html, body {
           </select>
         </div>
         <div class="ffield"><label>Votre message</label><textarea id="fm" placeholder="Décrivez votre projet, votre adresse, votre situation..."></textarea></div>
-        <button class="fsub" onclick="submitForm()">Envoyer ma demande →</button>
-        <div class="fsuccess" id="fsuccess">✓ Votre demande a bien été reçue ! Nous vous recontactons sous 24h.</div>
+        
+        <!-- On passe 'this' pour modifier le bouton pendant le chargement -->
+        <button class="fsub" onclick="submitForm(this)">Envoyer ma demande →</button>
+        <div class="fsuccess" id="fsuccess"></div>
       </div>
+      <!-- FIN DE LA ZONE FORMULAIRE -->
+
     </div>
   </div>
 
@@ -513,7 +515,7 @@ function goTo(id){
     el.scrollIntoView({behavior:'smooth',block:'start'});
     const navLinks = document.getElementById('nav-links');
     if (navLinks.classList.contains('active')) {
-        toggleMenu(); // Ferme le menu après le clic
+        toggleMenu(); 
     }
   }
 }
@@ -536,15 +538,81 @@ function toggleInfo(btn) {
   }
 }
 
-// Formulaire
-function submitForm(){
+// ==========================================
+// NOUVEAU SCRIPT POUR ENVOYER LE FORMULAIRE
+// ==========================================
+function submitForm(btnElement){
+  // 1. Validation des champs
   const ids=['fp','fn','ft','fe','fs'];
   let ok=true;
-  ids.forEach(id=>{const el=document.getElementById(id);if(!el.value.trim()){el.style.borderColor='rgba(212,184,122,0.7)';ok=false;}else el.style.borderColor='';});
-  if(!ok)return;
-  document.getElementById('fsuccess').style.display='block';
-  ids.forEach(id=>document.getElementById(id).value='');
-  document.getElementById('fm').value='';
+  ids.forEach(id=>{
+    const el=document.getElementById(id);
+    if(!el.value.trim()){
+      el.style.borderColor='rgba(212,184,122,0.7)';
+      ok=false;
+    } else {
+      el.style.borderColor='';
+    }
+  });
+  
+  // S'il manque un champ, on arrête tout
+  if(!ok) return;
+
+  // 2. On désactive le bouton pendant l'envoi
+  const originalText = btnElement.innerText;
+  btnElement.innerText = "Envoi en cours...";
+  btnElement.disabled = true;
+
+  // 3. On récupère les données
+  const data = {
+    Prénom: document.getElementById('fp').value,
+    Nom: document.getElementById('fn').value,
+    Téléphone: document.getElementById('ft').value,
+    Email: document.getElementById('fe').value,
+    Service: document.getElementById('fs').value,
+    Message: document.getElementById('fm').value
+  };
+
+  // 4. Envoi via FormSubmit
+  // REMPLACEZ "VOTRE_EMAIL@gmail.com" CI-DESSOUS PAR VOTRE VRAIE ADRESSE EMAIL
+  fetch("https://formsubmit.co/ajax/VOTRE_EMAIL@gmail.com", {
+    method: "POST",
+    headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  .then(response => response.json())
+  .then(data => {
+    // Si succès
+    const successBox = document.getElementById('fsuccess');
+    successBox.style.display = 'block';
+    successBox.style.color = '#6ee7b7';
+    successBox.style.borderColor = 'rgba(46,160,90,0.25)';
+    successBox.style.background = 'rgba(46,160,90,0.12)';
+    successBox.innerText = '✓ Votre demande a bien été reçue ! Nous vous recontactons sous 24h.';
+    
+    // On vide les champs
+    ids.forEach(id=>document.getElementById(id).value='');
+    document.getElementById('fm').value='';
+    
+    // On remet le bouton à la normale
+    btnElement.innerText = originalText;
+    btnElement.disabled = false;
+  })
+  .catch(error => {
+    // Si erreur
+    const successBox = document.getElementById('fsuccess');
+    successBox.style.display = 'block';
+    successBox.style.color = '#ff9999';
+    successBox.style.borderColor = 'rgba(255,0,0,0.3)';
+    successBox.style.background = 'rgba(255,0,0,0.1)';
+    successBox.innerText = '❌ Une erreur est survenue lors de l\'envoi. Veuillez réessayer.';
+    
+    btnElement.innerText = originalText;
+    btnElement.disabled = false;
+  });
 }
 
 // Animations au scroll
